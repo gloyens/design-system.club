@@ -1,3 +1,5 @@
+@use "../utils/variables" as *;
+
 code[class*="language-"],
 pre[class*="language-"] {
   font-family: $font-family-monospace;
