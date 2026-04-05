@@ -1,6 +1,5 @@
-const fs = require("fs");
 const path = require("path");
-const sass = require("node-sass");
+const sass = require("sass");
 const CleanCSS = require("clean-css");
 const cssesc = require("cssesc");
 
@@ -21,34 +20,26 @@ module.exports = class {
 
   // Compile Sass to CSS,
   // Embed Source Map in Development
-  async compile(config) {
-    return new Promise((resolve, reject) => {
-      if (!isProd) {
-        config.sourceMap = true;
-        config.sourceMapEmbed = true;
-        config.outputStyle = "expanded";
-      }
-      return sass.render(config, (err, result) => {
-        if (err) {
-          return reject(err);
-        }
-        resolve(result.css.toString());
-      });
-    });
+  compile(entryPath) {
+    const options = { style: isProd ? "compressed" : "expanded" };
+    if (!isProd) {
+      options.sourceMap = true;
+      options.sourceMapIncludeSources = true;
+    }
+    const result = sass.compile(entryPath, options);
+    return result.css;
   }
 
   // Minify & Optimize with CleanCSS in Production
-  async minify(css) {
-    return new Promise((resolve, reject) => {
-      if (!isProd) {
-        resolve(css);
-      }
-      const minified = new CleanCSS().minify(css);
-      if (!minified.styles) {
-        return reject(minified.error);
-      }
-      resolve(minified.styles);
-    });
+  minify(css) {
+    if (!isProd) {
+      return css;
+    }
+    const minified = new CleanCSS().minify(css);
+    if (!minified.styles) {
+      throw new Error(minified.errors?.join(", ") || "CleanCSS error");
+    }
+    return minified.styles;
   }
 
   // display an error overlay when CSS build fails.
@@ -70,9 +61,9 @@ module.exports = class {
             font-family: monospace;
             font-size: 1.25rem;
             line-height:1.5;
-        } 
-        body::before { 
-            content: ''; 
+        }
+        body::before {
+            content: '';
             background: #000;
             top: 0;
             bottom: 0;
@@ -81,11 +72,11 @@ module.exports = class {
             opacity: 0.7;
             position: fixed;
         }
-        body::after { 
-            content: '${cssesc(error)}'; 
+        body::after {
+            content: '${cssesc(error)}';
             white-space: pre;
             display: block;
-            top: 0; 
+            top: 0;
             padding: 30px;
             margin: 50px;
             width: calc(100% - 100px);
@@ -99,8 +90,8 @@ module.exports = class {
   // render the CSS file
   async render({ entryPath }) {
     try {
-      const css = await this.compile({ file: entryPath });
-      const result = await this.minify(css);
+      const css = this.compile(entryPath);
+      const result = this.minify(css);
       return result;
     } catch (err) {
       // if things go wrong
