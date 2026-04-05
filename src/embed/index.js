@@ -9,7 +9,7 @@ import members from "../data/members.json" with { type: "json" };
  * @displayName Design Systems Webring
  * @status stable
  */
-export default class DesignSystemsWebring extends Elena(HTMLElement) {
+class DesignSystemsWebring extends Elena(HTMLElement) {
   static tagName = "design-systems-webring";
   static shadow = "open";
   static styles = styles;

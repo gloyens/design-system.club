@@ -10,9 +10,6 @@
         X-XSS-Protection = "1; mode=block"
         X-Content-Type-Options = "nosniff"
         Referrer-Policy= "no-referrer-when-downgrade"
-    for = "/embed-v2.js"
-    [headers.values]
-        Access-Control-Allow-Origin = "*"
 
 [[redirects]]
     from = "/next"
