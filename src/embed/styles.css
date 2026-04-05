@@ -6,7 +6,8 @@
   font-size: 100%;
 }
 
-:host {
+:host,
+design-systems-webring:not([hydrated]) {
   display: block;
   width: 100%;
   font-family: sans-serif;
@@ -48,16 +49,20 @@
   padding-right: 2rem;
 }
 
+design-systems-webring:not([hydrated]) img,
 .webring-banner__image {
   display: block;
   width: 70px;
   height: 70px;
-  margin-right: 1rem;
+  margin: 0 1rem 0 0;
   border-radius: 50%;
 }
 
+design-systems-webring:not([hydrated]) h3,
+design-systems-webring:not([hydrated]) h3 a,
 .webring-banner__title {
   margin: 0;
+  font-family: sans-serif;
   font-size: 1.25rem;
   font-weight: bold;
   line-height: 1.2;

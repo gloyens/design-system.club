@@ -1,9 +1,22 @@
 <design-systems-webring>
-  <p>
-    This site is part of <a href="{{ meta.url }}">{{ meta.title }}</a>
-  </p>
-  <a rel="external" referrerpolicy="strict-origin" href="{{ meta.url }}/prev">Previous</a>
-  <a rel="external" referrerpolicy="strict-origin" href="{{ meta.url }}/random">Random</a>
-  <a rel="external" referrerpolicy="strict-origin" href="{{ meta.url }}/next">Next</a>
+  <div class="webring-banner">
+    <div class="webring-banner__header">
+      <img class="webring-banner__image" src="{{ meta.url }}/assets/images/{{ meta.image }}" alt="" />
+      <div class="webring-banner__description">
+        <span>This site is part of</span>
+        <h3 class="webring-banner__title">
+          <a href="{{ meta.url }}">{{ meta.title }}</a>
+        </h3>
+        <span>A webring with {{ members | length }} Members</span>
+      </div>
+      <a class="webring-banner__info" href="https://en.wikipedia.org/wiki/Webring" title="What's this?">?</a>
+    </div>
+    <p class="webring-banner__links">
+      <a href="{{ meta.url }}/prev" rel="external" referrerpolicy="strict-origin" class="webring-banner__link webring-banner__link--prev" aria-label="Go to previous site">⬅️ Previous</a>
+      <a href="{{ meta.url }}/random" rel="external" referrerpolicy="strict-origin" class="webring-banner__link webring-banner__link--random" aria-label="Go to a random site">😎 Random</a>
+      <a href="{{ meta.url }}/next" rel="external" referrerpolicy="strict-origin" class="webring-banner__link webring-banner__link--next" aria-label="Go to next site">Next ➡️</a>
+    </p>
+  </div>
 </design-systems-webring>
+<link rel="stylesheet" href="{{ meta.url }}/styles.css">
 <script async src="{{ meta.url }}/embed.js" charset="utf-8"></script>
