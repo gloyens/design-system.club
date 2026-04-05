@@ -10,7 +10,7 @@ export default {
     dir: "dist",
     format: "esm",
     sourcemap: false,
-    filename: "embed-v2.js"
+    filename: "embed.js"
   },
   bundle: "src/embed/index.js",
   plugins: [json()],
