@@ -11,6 +11,11 @@
         X-Content-Type-Options = "nosniff"
         Referrer-Policy= "no-referrer-when-downgrade"
 
+[[headers]]
+    for = "/embed.js"
+    [headers.values]
+        Access-Control-Allow-Origin = "*"
+
 [[redirects]]
     from = "/next"
     to = "/.netlify/functions/next"
