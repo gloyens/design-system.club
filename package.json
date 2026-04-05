@@ -1,6 +1,6 @@
 {
   "name": "design-systems-webring",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "description": "A webring for design system practitioners.",
   "author": "Ariel Salminen",
   "license": "MIT",
@@ -8,20 +8,29 @@
     "type": "git",
     "url": "http://github.com/arielsalminen/design-system.club"
   },
+  "engines": {
+    "node": ">= 22",
+    "yarn": "please-use-npm"
+  },
   "scripts": {
-    "start": "ELEVENTY_ENV=development eleventy --serve",
-    "build": "ELEVENTY_ENV=production eleventy && npm run build:lambda",
+    "start": "npm run build:embed && ELEVENTY_ENV=development eleventy --serve",
+    "build:embed": "npx elena build",
+    "build": "npm run build:embed && ELEVENTY_ENV=production eleventy && npm run build:lambda",
     "serve:lambda": "netlify-lambda serve _lambda",
     "build:lambda": "netlify-lambda build _lambda"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "@elenajs/bundler": "^1.0.0-rc.12",
+    "@elenajs/core": "^1.0.0-rc.12",
     "clean-css": "^5.3.3",
     "cssesc": "^3.0.0",
     "html-minifier": "^4.0.0",
     "netlify-lambda": "^2.0.16",
-    "node-sass": "^9.0.0",
     "sass": "^1.86.3"
+  },
+  "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0"
   }
 }
