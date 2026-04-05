@@ -12,7 +12,7 @@
         Referrer-Policy= "no-referrer-when-downgrade"
 
 [[headers]]
-    for = "/embed.js"
+    for = "/embed-v2.js"
     [headers.values]
         Access-Control-Allow-Origin = "*"
 
